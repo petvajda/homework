@@ -9,11 +9,15 @@ class WeatherData
     @temperature_spread = Array.new
     CSV.foreach(file_name, col_sep: " ") do |row|
       begin
-        @temperature_spread << [Integer(row[0]), Integer(row[2]), Integer(row[1])] if not row.empty?
+        @temperature_spread << [
+          Integer(row[0].chomp("*")), 
+          Integer(row[2].chomp("*")),
+          Integer(row[1].chomp("*"))] if not row.empty?
       rescue ArgumentError
         # Skip header of table
       end
     end
+    puts @temperature_spread.inspect
   end
 
   def self.analyse
