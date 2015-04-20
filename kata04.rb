@@ -5,7 +5,9 @@ require 'csv'
 require_relative "kata04"
 
 class WeatherData
-  def self.read_file(file_name)
+  attr_accessor :temperature_spread
+  
+  def read_file(file_name)
     @temperature_spread = Array.new
     CSV.foreach(file_name, col_sep: " ") do |row|
       begin
@@ -17,10 +19,9 @@ class WeatherData
         # Skip header of table
       end
     end
-    puts @temperature_spread.inspect
   end
 
-  def self.analyse
+  def analyse
     smallest = [@temperature_spread[0][0], @temperature_spread[0][2] - @temperature_spread[0][1]]
     for row in @temperature_spread
       diff = row[2] - row[1]
