@@ -6,26 +6,37 @@
 require 'csv'
 require_relative "kata04"
 
-class WeatherData
-  attr_accessor :temperature_spread
+class DataReader
+  attr_accessor :data
   
-  def read_file(file_name)
-    @temperature_spread = Array.new
+  def read_file(file_name, name_i, first_i, second_i)
+    @data = Array.new
     CSV.foreach(file_name, col_sep: " ") do |row|
       begin
-        @temperature_spread << [
-          Integer(row[0].chomp("*")), 
-          Integer(row[2].chomp("*")),
-          Integer(row[1].chomp("*"))] if not row.empty?
+        @data << [
+          row[name_i], 
+          Integer(row[first_i].chomp("*")),
+          Integer(row[second_i].chomp("*"))] unless
+            row.empty? or row[name_i].nil? or row[first_i].nil? or row[second_i].nil?
       rescue ArgumentError
         # Skip header of table
       end
     end
   end
+  
+  def analyse
+  end
+end
+
+class WeatherData < DataReader
+  
+  def read_file(file_name)
+    super(file_name, 0, 2, 1)
+  end
 
   def analyse
-    smallest = [@temperature_spread[0][0], @temperature_spread[0][2] - @temperature_spread[0][1]]
-    for row in @temperature_spread
+    smallest = [@data[0][0], @data[0][2] - @data[0][1]]
+    for row in @data
       diff = row[2] - row[1]
       smallest = row[0], diff if diff < smallest[1]    
     end
@@ -33,26 +44,15 @@ class WeatherData
   end
 end
 
-class FootballData
-  attr_accessor :difference
+class FootballData < DataReader
   
   def read_file(file_name)
-    @difference = Array.new
-    CSV.foreach(file_name, col_sep: " ") do |row|
-      begin
-        @difference << [
-          row[1],
-          Integer(row[6]),
-          Integer(row[8])] unless row[1].nil? or row[6].nil? or row[8].nil?
-      rescue ArgumentError
-        # Skip header of table
-      end
-    end    
+    super(file_name, 1, 6, 8)
   end
   
   def analyse
-    smallest = [@difference[0][0], (@difference[0][2] - @difference[0][1]).abs]
-    for row in @difference
+    smallest = [@data[0][0], (@data[0][2] - @data[0][1]).abs]
+    for row in @data
       diff = row[2] - row[1]
       smallest = row[0], diff.abs if diff.abs < smallest[1]    
     end
