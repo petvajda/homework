@@ -25,37 +25,23 @@ class DataReader
   end
   
   def analyse
-  end
-end
-
-class WeatherData < DataReader
-  
-  def read_file(file_name)
-    super(file_name, 0, 2, 1)
-  end
-
-  def analyse
-    smallest = [@data[0][0], @data[0][2] - @data[0][1]]
-    for row in @data
-      diff = row[2] - row[1]
-      smallest = row[0], diff if diff < smallest[1]    
-    end
-    return smallest
-  end
-end
-
-class FootballData < DataReader
-  
-  def read_file(file_name)
-    super(file_name, 1, 6, 8)
-  end
-  
-  def analyse
     smallest = [@data[0][0], (@data[0][2] - @data[0][1]).abs]
     for row in @data
       diff = row[2] - row[1]
       smallest = row[0], diff.abs if diff.abs < smallest[1]    
     end
     return smallest    
+  end
+end
+
+class WeatherData < DataReader  
+  def read_file(file_name)
+    super(file_name, 0, 2, 1)
+  end
+end
+
+class FootballData < DataReader
+  def read_file(file_name)
+    super(file_name, 1, 6, 8)
   end
 end
