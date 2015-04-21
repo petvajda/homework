@@ -36,7 +36,9 @@ end
 
 class WeatherData < DataReader  
   def read_file(file_name)
-    super(file_name, 0, 2, 1)
+    # super(file_name, 0, 2, 1)
+    # Both works :-)
+    super(file_name, 0, 1, 2)
   end
 end
 
