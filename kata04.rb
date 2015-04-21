@@ -1,5 +1,7 @@
 #!/usr/bin/ruby -w
 # Created by Peter Vajda 20.04.2015
+# Solutions for this coding exercise:
+# http://codekata.com/kata/kata04-data-munging/
 
 require 'csv'
 require_relative "kata04"
