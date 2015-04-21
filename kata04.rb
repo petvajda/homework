@@ -11,25 +11,19 @@ class DataReader
   
   def read_file(file_name, name_i, first_i, second_i)
     @data = Array.new
+    smallest = ["", 9999]
     CSV.foreach(file_name, col_sep: " ") do |row|
       begin
-        @data << [
-          row[name_i], 
-          Integer(row[first_i].chomp("*")),
-          Integer(row[second_i].chomp("*"))
-        ]                
+        name          = row[name_i]
+        data1         = Integer(row[first_i].chomp("*"))
+        data2         = Integer(row[second_i].chomp("*"))
+        diff          = (data2 - data1).abs
+        smallest      = name, diff if diff < smallest[1]
+        @data        << [name, data1, data2]
       rescue ArgumentError, NoMethodError
         # Skip header of table and empty lines
       end
     end
-  end
-  
-  def analyse
-    smallest = [@data[0][0], (@data[0][2] - @data[0][1]).abs]
-    for row in @data
-      diff = (row[2] - row[1]).abs
-      smallest = row[0], diff if diff < smallest[1]    
-    end
-    return smallest    
+    return smallest[0]
   end
 end
