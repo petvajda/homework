@@ -14,5 +14,6 @@ class TestKata04 < Test::Unit::TestCase
   	d = FootballData.new
     d.read_file("football.dat")
     assert_equal(20, d.difference.length)
+    assert_equal(["Aston_Villa", 1], d.analyse())
   end
 end

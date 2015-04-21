@@ -50,6 +50,12 @@ class FootballData
     end    
   end
   
-  def analyse    
+  def analyse
+    smallest = [@difference[0][0], (@difference[0][2] - @difference[0][1]).abs]
+    for row in @difference
+      diff = row[2] - row[1]
+      smallest = row[0], diff.abs if diff.abs < smallest[1]    
+    end
+    return smallest    
   end
 end
