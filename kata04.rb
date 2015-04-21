@@ -16,10 +16,10 @@ class DataReader
         @data << [
           row[name_i], 
           Integer(row[first_i].chomp("*")),
-          Integer(row[second_i].chomp("*"))] unless
-            row.empty? or row[name_i].nil? or row[first_i].nil? or row[second_i].nil?
-      rescue ArgumentError
-        # Skip header of table
+          Integer(row[second_i].chomp("*"))
+        ]                
+      rescue ArgumentError, NoMethodError
+        # Skip header of table and empty lines
       end
     end
   end
