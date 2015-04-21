@@ -27,8 +27,8 @@ class DataReader
   def analyse
     smallest = [@data[0][0], (@data[0][2] - @data[0][1]).abs]
     for row in @data
-      diff = row[2] - row[1]
-      smallest = row[0], diff.abs if diff.abs < smallest[1]    
+      diff = (row[2] - row[1]).abs
+      smallest = row[0], diff if diff < smallest[1]    
     end
     return smallest    
   end
