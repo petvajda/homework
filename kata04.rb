@@ -32,3 +32,24 @@ class WeatherData
     return smallest
   end
 end
+
+class FootballData
+  attr_accessor :difference
+  
+  def read_file(file_name)
+    @difference = Array.new
+    CSV.foreach(file_name, col_sep: " ") do |row|
+      begin
+        @difference << [
+          row[1],
+          Integer(row[6]),
+          Integer(row[8])] unless row[1].nil? or row[6].nil? or row[8].nil?
+      rescue ArgumentError
+        # Skip header of table
+      end
+    end    
+  end
+  
+  def analyse    
+  end
+end
