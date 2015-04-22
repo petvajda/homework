@@ -5,13 +5,14 @@
 
 require 'csv'
 require_relative "kata04"
+FIXNUM_MAX = (2**(0.size * 8 -2) -1)
 
 class DataReader
   attr_accessor :data
   
   def read_file(file_name, name_i, first_i, second_i)
     @data = Array.new
-    smallest = ["", 9999]
+    smallest = ["", FIXNUM_MAX]
     CSV.foreach(file_name, col_sep: " ") do |row|
       begin
         name          = row[name_i]
