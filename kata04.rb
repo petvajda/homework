@@ -4,7 +4,6 @@
 # http://codekata.com/kata/kata04-data-munging/
 
 require 'csv'
-require_relative "kata04"
 
 class DataReader
   attr_accessor :data
