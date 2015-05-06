@@ -12,12 +12,12 @@ class DataReader
     @data    = Array.new
     firstrun = true
     smallest = []
-    CSV.foreach(file_name, col_sep: " ") do |row|
+    CSV.foreach(file_name, col_sep: " ", :headers => true) do |row|
       begin
         name                 = row[name_i]
         data1                = Integer(row[first_i].chomp("*"))
         data2                = Integer(row[second_i].chomp("*"))
-        diff                 = (data2 - data1).abs
+        diff                 = (data2 - data1).abs        
         if firstrun
           smallest, firstrun = [row[name_i], diff], false
         else

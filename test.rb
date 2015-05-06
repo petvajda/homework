@@ -5,7 +5,7 @@ class TestKata04 < Test::Unit::TestCase
  
   def test_weather
   	d = DataReader.new
-    assert_equal("14", d.read_file("weather.dat", 0, 1, 2))
+    assert_equal("14", d.read_file("weather.dat", "Dy", "MxT", "MnT"))
     assert_equal(30, d.data.length)
   end
 
