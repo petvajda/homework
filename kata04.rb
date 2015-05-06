@@ -25,7 +25,7 @@ class DataReader
         end        
         @data               << [name, data1, data2]
       rescue ArgumentError, NoMethodError
-        # Skip header of table and empty lines
+        # Escape for Strings and non Integer values
       end
     end
     return smallest[0]
