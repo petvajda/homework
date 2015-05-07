@@ -10,8 +10,8 @@ class DataReader
   
   def read_file(file_name, name_i, first_i, second_i)
     @data    = Array.new
+    smallest = Array.new
     firstrun = true
-    smallest = []
     CSV.foreach(file_name, col_sep: " ", :headers => true) do |row|
       begin
         name                 = row[name_i]
